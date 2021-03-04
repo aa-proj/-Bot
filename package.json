@@ -1,0 +1,19 @@
+{
+  "name": "furohaittakabot",
+  "version": "1.0.0",
+  "description": "FuroHaittakaBot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aa-proj/FuroHaittakaBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aa-proj/FuroHaittakaBot/issues"
+  },
+  "homepage": "https://github.com/aa-proj/FuroHaittakaBot#readme"
+}
