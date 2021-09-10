@@ -4,6 +4,7 @@ import typeorm, {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import {Furo} from "./furo";
 
 @Entity("User")
 export class User {
@@ -13,12 +14,6 @@ export class User {
   @Column({type: "text", default: null})
   discordId?: string;
 
-  @Column({type: "boolean", default: false})
-  nowSleeping: boolean;
-
-  @Column({type: "int", default: null})
-  sleepTempTime: number;
-
-  @OneToMany((type) => Sleep, (sleep) => sleep.user)
+  @OneToMany((type) => Furo, (sleep) => sleep.user)
   furos?: Furo[];
 }

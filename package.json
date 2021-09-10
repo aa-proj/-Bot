@@ -2,8 +2,11 @@
   "name": "furohaittakabot",
   "version": "1.0.0",
   "description": "FuroHaittakaBot",
-  "main": "index.js",
-  "scripts": {
+  "main": "build/main.js",
+  "scripts": {    "start": "tsc && node build/src/index.js",
+    "build": "tsc",
+    "dev": "tsc -w",
+    "ndev": "nodemon build/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
