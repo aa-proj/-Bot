@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  node:
+    build: .
+    init: true
+    restart: always
+    environment:
+      FURO_TOKEN: "Your Token"
+    volumes:
+      - ./db:/app/db
