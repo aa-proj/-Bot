@@ -6,4 +6,4 @@ COPY tsconfig.json .
 RUN npm i
 COPY src ./src
 RUN npm run build
-CMD ["node","build/src/index.js"]
+CMD ["node","build/main.js"]
