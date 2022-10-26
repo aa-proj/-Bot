@@ -2,6 +2,7 @@ import {Client, Emoji, Message, TextChannel} from "discord.js";
 import {Connection, ConnectionOptions, createConnection} from "typeorm";
 import {User} from "./eneity/User";
 import {Furo} from "./eneity/furo";
+import axios from "axios";
 
 
 const bathReaction = "<:nyuyoku:885703314417807420>";
@@ -87,11 +88,16 @@ async function msgReactionAdd(reaction: IReaction) {
                             "は初めてお風呂に入りました"
                         );
                     } else {
+                        const aap = calcAAPoint((new Date().getTime()) - (new Date(furoTime).getTime()))
+                        if(aap !== 0) {
+                            await giveAAPoint(reaction.user_id, aap)
+                        }
                         await general.send(
                             getNamefromID(reaction.user_id) +
                             "は" +
                             getTimeFromMills((new Date().getTime()) - (new Date(furoTime).getTime()))
-                            + "ぶりにお風呂に入りました"
+                            + "ぶりにお風呂に入りました\n"
+                            + `${aap}ああP付与されました`
                         );
                     }
                 }
@@ -99,6 +105,36 @@ async function msgReactionAdd(reaction: IReaction) {
                 break;
         }
     }
+}
+
+function calcAAPoint(time: number): number {
+    const hour = Math.ceil(time / (1000 * 60 * 60))
+    if(0 <= hour && hour < 6) {
+        return 0
+    } else if(6 <= hour && hour < 18) {
+        return 6
+    } else if(18 <= hour && hour < 36) {
+        return 12
+    } else {
+        return 0
+    }
+}
+
+async function giveAAPoint(id: string, point: number) {
+    await generateMoneyById(id, point)
+}
+
+async function sendMoneyById(fromId: number | string, toId: number | string, amount: number, memo: string = ""): Promise<boolean> {
+    const sendBody = {fromId: fromId.toString(), toId: toId.toString(), amount, memo}
+    // console.log(sendBody)
+    const {data} = await axios.post( "https://bank.ahoaho.jp/", sendBody)
+    if (!data.success) throw new Error(data.message)
+    return true
+}
+
+async function generateMoneyById(toId: number | string, amount: number): Promise<boolean> {
+    const result = await sendMoneyById("885834421771567125", toId, amount)
+    return result
 }
 
 
