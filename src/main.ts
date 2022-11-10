@@ -123,7 +123,7 @@ function calcAAPoint(time: number): number {
   if (0 <= hour && hour < 6) {
     return 0
   } else if (6 <= hour && hour < 18) {
-    return 6
+    return 8
   } else if (18 <= hour && hour < 36) {
     return 12
   } else {
